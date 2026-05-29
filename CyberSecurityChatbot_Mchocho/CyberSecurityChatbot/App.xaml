@@ -1,0 +1,164 @@
+<Application x:Class="CyberSecurityChatbot.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:CyberSecurityChatbot"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <!-- Brand Color Palette (HSL Tailored Modern Colors) -->
+        <SolidColorBrush x:Key="BgBrush" Color="#0D1117" />
+        <SolidColorBrush x:Key="CardBrush" Color="#161B22" />
+        <SolidColorBrush x:Key="PanelBrush" Color="#21262D" />
+        
+        <SolidColorBrush x:Key="AccentCyan" Color="#00ADB5" />
+        <SolidColorBrush x:Key="AccentCyanHover" Color="#00FFF5" />
+        <SolidColorBrush x:Key="AccentGreen" Color="#00B8A9" />
+        
+        <SolidColorBrush x:Key="TextPrimary" Color="#F0F6FC" />
+        <SolidColorBrush x:Key="TextSecondary" Color="#8B949E" />
+        <SolidColorBrush x:Key="BorderBrush" Color="#30363D" />
+
+        <!-- Chat Bubble Brushes -->
+        <SolidColorBrush x:Key="UserBubbleBg" Color="#0E4249" />
+        <SolidColorBrush x:Key="UserBubbleBorder" Color="#00ADB5" />
+        <SolidColorBrush x:Key="BotBubbleBg" Color="#1F242C" />
+        <SolidColorBrush x:Key="BotBubbleBorder" Color="#30363D" />
+
+        <!-- Font Sizes and Weights -->
+        <FontFamily x:Key="PrimaryFont">Segoe UI, Roboto, Helvetica, Arial</FontFamily>
+        <FontFamily x:Key="MonospaceFont">Consolas, Courier New</FontFamily>
+
+        <!-- Custom Scrollbar Template -->
+        <Style x:Key="ModernScrollBarThumb" TargetType="Thumb">
+            <Setter Property="Background" Value="#30363D" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Thumb">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="4" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#00ADB5" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="ScrollBar">
+            <Setter Property="Width" Value="8" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ScrollBar">
+                        <Grid Background="Transparent">
+                            <Track Name="PART_Track" IsDirectionReversed="True">
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton Command="ScrollBar.LineUpCommand" Visibility="Collapsed"/>
+                                </Track.DecreaseRepeatButton>
+                                <Track.Thumb>
+                                    <Thumb Style="{StaticResource ModernScrollBarThumb}" />
+                                </Track.Thumb>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton Command="ScrollBar.LineDownCommand" Visibility="Collapsed"/>
+                                </Track.IncreaseRepeatButton>
+                            </Track>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Custom TextBox Style with Rounded Corners and Cyber Glow -->
+        <Style x:Key="CyberTextBox" TargetType="TextBox">
+            <Setter Property="Background" Value="#161B22" />
+            <Setter Property="Foreground" Value="#F0F6FC" />
+            <Setter Property="BorderBrush" Value="#30363D" />
+            <Setter Property="BorderThickness" Value="1.5" />
+            <Setter Property="Padding" Value="14,12" />
+            <Setter Property="CaretBrush" Value="#00ADB5" />
+            <Setter Property="FontFamily" Value="{StaticResource PrimaryFont}" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8"
+                                SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#8B949E" />
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="true">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#00ADB5" />
+                                <Setter Property="Background" Value="#0D1117" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Premium Rounded Button Style -->
+        <Style x:Key="CyberButton" TargetType="Button">
+            <Setter Property="Background" Value="#00ADB5" />
+            <Setter Property="Foreground" Value="#0D1117" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontFamily" Value="{StaticResource PrimaryFont}" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Padding" Value="18,10" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="8"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter"
+                                              Focusable="False"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Margin="{TemplateBinding Padding}"
+                                              RecognizesAccessKey="True"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="border" Property="Background" Value="#00FFF5" />
+                                <Setter Property="Cursor" Value="Hand" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter TargetName="border" Property="Background" Value="#008E95" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="border" Property="Background" Value="#21262D" />
+                                <Setter Property="Foreground" Value="#8B949E" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Secondary Button Style -->
+        <Style x:Key="SecondaryCyberButton" TargetType="Button" BasedOn="{StaticResource CyberButton}">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="#00ADB5" />
+            <Setter Property="BorderThickness" Value="1.5" />
+            <Setter Property="BorderBrush" Value="#00ADB5" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Background" Value="#132733" />
+                    <Setter Property="Foreground" Value="#00FFF5" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Application.Resources>
+</Application>
